@@ -106,3 +106,7 @@ form input[type=text] {
   width: 200px;
   background-color: red;
 }
+
+.highlighted {
+  background-color: yellow !important;
+}

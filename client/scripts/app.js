@@ -5,6 +5,8 @@ var escapeText = function(string) {
 };
 
 var app = {};
+var friendsObject = {};
+
 app.server = 'https://api.parse.com/1/classes/messages';
 
 app.init = function() {
@@ -52,9 +54,12 @@ app.addMessage = function(message) {
   var messageBox = $(`<div class="panel panel-default message-box ${escapeText(message.roomname)}"></div>`);
   //create components for message parts
   var user = $(`<div class="panel-heading username">${escapeText(message.username)}:</div>`);
-  var message = $(`<div class="panel-body message-text">${escapeText(message.text)}</div>`);
+  var messageBody = $(`<div class="panel-body message-text">${escapeText(message.text)}</div>`);
+  if (friendsObject[message.username] !== undefined) {
+    user.addClass('highlighted');
+  }
 
-  messageBox.append(user, message);
+  messageBox.append(user, messageBody);
   $('#chats').append(messageBox);
 };
 
@@ -66,8 +71,6 @@ app.addRoom = function() {};
 
 $(document).ready(function() {
   app.fetch('lobby');
-
-  var friendsObject = {};
 
   var sendMessage = function() {
     var message = {
@@ -85,7 +88,6 @@ $(document).ready(function() {
     var roomVal = $('select.rooms').val();
 
     app.fetch(roomVal);
-
 
     if (roomVal === 'add-room') {
       //create container for message
@@ -135,6 +137,7 @@ $(document).ready(function() {
     $('select.friends').prepend(`<option selected value="${newFriendName}">${newFriendName}</option>`);
     $('.friend-name').remove();
     $('.friend-btn').remove();
+    friendsObject[newFriendName] = newFriendName;
   });
 
   var refreshMesssages = function() {
@@ -144,13 +147,13 @@ $(document).ready(function() {
   };
 
   var addFriendToArray = function(e) {
-    e.target.style = "background-color: yellow";
     var val = e.target.innerHTML.substring(0, e.target.innerHTML.length - 1);
     friendsObject[val] = val;
-    console.log(friendsObject);
-  };
+    $('select.friends').prepend(`<option selected value="${val}">${val}</option>`);
 
+  };
   $('#chats').on('click', '.username', addFriendToArray);
+
   setInterval(refreshMesssages, 5333.333333);
 
 });
