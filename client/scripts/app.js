@@ -34,7 +34,7 @@ app.send = function(message) {
 };
 
 app.fetch = function(room, user) {
-  var params = JSON.stringify({"roomname":'lobby'});
+  var params = JSON.stringify({ roomname: room, username: user});
   console.log(`https://api.parse.com/1/classes/messages?where=${params}`);
   //debugger;
   $.ajax({
@@ -69,8 +69,12 @@ app.addMessage = function(message) {
 
 app.addRoom = function() {};
 
+
+
+
+
 $(document).ready(function() {
-  app.fetch();
+  app.fetch('lobby');
 
   var sendMessage = function() {
     var message = {
@@ -84,8 +88,11 @@ $(document).ready(function() {
 
   var changeRoom = function() {
     $('.message-box').fadeOut();
-    app.fetch();
+    console.log('this value: ', $(this).text());
     var roomVal = $('select.rooms').val();
+    
+    app.fetch(roomVal);
+
 
     if (roomVal === 'add-room') {
       //create container for message
@@ -95,13 +102,13 @@ $(document).ready(function() {
       $('#options').append(roomBox);
       $('#options').append(roomBtn);
     } else {
-      console.log(roomVal);
       $(`.${roomVal}`).fadeIn();
     }
 
   };
 
   $('select.rooms').on('change', changeRoom);
+
   $('#options').on('click', '.room-btn', function() {
     var newRoomName = $('.room-name').val();
     $('select.rooms').prepend(`<option selected value="${newRoomName}">${newRoomName}</option>`);
