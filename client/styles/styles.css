@@ -1,3 +1,8 @@
+.enter-text {
+    width: 300px;
+    height: 30px;
+}
+
 body {
     background: #eee;
     text-align: center;
@@ -88,3 +93,17 @@ form input[type=text] {
     background-color: #0090da;
 }
 
+.labels {
+
+    display: inline-block;
+}
+
+.labelBlock {
+    display: block;
+}
+
+.room-form {
+    height: 30px;
+    width: 200px;
+    background-color: red;
+}
