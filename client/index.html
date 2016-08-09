@@ -5,47 +5,60 @@
   <meta charset="utf-8">
   <title>chatterbox</title>
   <link rel="stylesheet" href="styles/styles.css">
-  <!-- dependencies -->
-
-  <!--
-  <script src="http://www.parsecdn.com/js/parse-1.6.14.min.js"></script>  
-  <!-- your scripts -->
-
-
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 </head>
 
 <body>
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/underscore/underscore-min.js"></script>
-  <script src="env/config.js"></script>
-  <script src="scripts/app.js"></script>
-  <div id="main">
-    <h1>chatterbox</h1>
-    <div class="labelBlock" id="options">
-      <h3 class="labels"> Room: </h3>
-      <select class="labels rooms">
-        <option value="test">Test</option>
-        <option value="lobby">Lobby</option>
-        <option value="add-room">Create New Room...</option>        
-      </select>
-    </div>
-    <div class="labelBlock">
-      <input type="text" class="labels enter-text"></input> 
-      <button class="send labels"> Send Message</button>
-    </div>
-    <!-- Your HTML goes here! -->
-    <!--     <h2>Chat Room</h2>
-    <div class="chat-room">
-      <div class="message-box">
-        <div class="user-image"></div>
-        <div class="username"></div>
-        <div class="message-text"></div>
-        <div class="time-stamp"></div>
-        <div class="buttons"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-offset-1 col-xs-10">
+        <div class="navbar-header">
+          <a class="navbar-brand">Chatterbox</a>
+        </div>
+        <ul class="nav nav-tabs">
+          <li role="presentation" class="active"><a href="#">Home</a></li>
+          <li role="presentation"><a href="#">Profile</a></li>
+          <li role="presentation"><a href="#">Messages</a></li>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </ul>
       </div>
-    </div> -->
-  </div>
-  <div id="chats"></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-offset-1 col-xs-5">
+        <div id="main">
+          <h1>chatterbox</h1>
+        </div>
+      </div>
+      <div class="col-xs-5">
+        <div class=" labelBlock " id="options ">
+          <h3 class="labels "> Room: </h3>
+          <select class="labels rooms ">
+            <option value="test ">Test</option>
+            <option value="lobby ">Lobby</option>
+            <option value="add-room ">Create New Room...</option>
+          </select>
+        </div>
+        <div class="labelBlock ">
+          <input type="text " class="labels enter-text "></input>
+          <button class="send labels "> Send Message</button>
+        </div>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-xs-offset-1 col-xs-10 ">
+        <div id="chats"></div>
+      </div>
+    </div>
+    <script src="bower_components/jquery/dist/jquery.js "></script>
+    <script src="bower_components/underscore/underscore-min.js "></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap-min.js "></script>
+    <script src="env/config.js "></script>
+    <script src="scripts/app.js "></script>
 </body>
 
 </html>

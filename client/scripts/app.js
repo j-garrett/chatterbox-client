@@ -1,20 +1,13 @@
-// YOUR CODE HERE:
-// var Parse = require('parse');
-// Parse.initialize("jon&vincent");
-// Parse.serverUrl = 'https://api.parse.com/1/classes/messages';
-
-// var App = Parse.Object.extend("App");
-//$(document).ready(function() {
-var escapeText = function(string) { 
+var escapeText = function(string) {
   var fakeDiv = $('<div>').text(string);
   var escaped = fakeDiv.html();
   return escaped;
 };
 
 var app = {};
-app.server = 'https://api.parse.com/1/classes/messages';    
+app.server = 'https://api.parse.com/1/classes/messages';
 
-app.init = function(){
+app.init = function() {
   app.user = window.location.href.split("username=").pop();
 };
 
@@ -26,19 +19,17 @@ app.send = function(message) {
     type: 'POST',
     data: JSON.stringify(message),
     contentType: 'application/json',
-    success: function(data) {
-    },
-    error: function(data) {
-    }
+    success: function(data) {},
+    error: function(data) {}
   });
 };
 
 app.fetch = function(room, user) {
-  var params = JSON.stringify({ roomname: room, username: user});
+  var params = JSON.stringify({ roomname: room, username: user });
   console.log(`https://api.parse.com/1/classes/messages?where=${params}`);
   //debugger;
   $.ajax({
-    url: `https://api.parse.com/1/classes/messages?where=${params}`,    
+    url: `https://api.parse.com/1/classes/messages?where=${params}`,
     type: 'GET',
     contentType: 'application/json',
     success: function(data) {
@@ -47,8 +38,7 @@ app.fetch = function(room, user) {
         app.addMessage(item);
       });
     },
-    error: function(data) {
-    }
+    error: function(data) {}
   });
 };
 
@@ -58,10 +48,10 @@ app.clearMessages = function() {
 
 app.addMessage = function(message) {
   //create container for message
-  var messageBox = $(`<div class="message-box ${escapeText(message.roomname)}"></div>`);
+  var messageBox = $(`<div class="panel panel-default message-box ${escapeText(message.roomname)}"></div>`);
   //create components for message parts
-  var user = $(`<div class="username">${escapeText(message.username)}:</div>`);
-  var message = $(`<div class="message-text">${escapeText(message.text)}</div>`);
+  var user = $(`<div class="panel-heading username">${escapeText(message.username)}:</div>`);
+  var message = $(`<div class="panel-body message-text">${escapeText(message.text)}</div>`);
 
   messageBox.append(user, message);
   $('#chats').append(messageBox);
@@ -90,7 +80,7 @@ $(document).ready(function() {
     $('.message-box').fadeOut();
     console.log('this value: ', $(this).text());
     var roomVal = $('select.rooms').val();
-    
+
     app.fetch(roomVal);
 
 
@@ -117,5 +107,3 @@ $(document).ready(function() {
   });
 
 });
-
-
