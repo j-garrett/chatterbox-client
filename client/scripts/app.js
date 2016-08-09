@@ -7,13 +7,12 @@ var escapeText = function(string) {
 var app = {};
 var friendsObject = {};
 
-app.server = 'https://api.parse.com/1/classes/messages';
 
 app.init = function() {
   app.user = window.location.href.split("username=").pop();
+  app.server = 'https://api.parse.com/1/classes/messages';
+  app.fetch('lobby');
 };
-
-app.init();
 
 app.send = function(message) {
   $.ajax({
@@ -70,7 +69,7 @@ app.addRoom = function() {};
 
 
 $(document).ready(function() {
-  app.fetch('lobby');
+  app.init();
 
   var sendMessage = function() {
     var message = {
@@ -103,13 +102,14 @@ $(document).ready(function() {
   };
 
   $('select.rooms').on('change', changeRoom);
-  $('#options').on('click', '.room-btn', function() {
+
+  var addRoom = function() {
     var newRoomName = $('.room-name').val();
     $('select.rooms').prepend(`<option selected value="${newRoomName}">${newRoomName}</option>`);
     $('.room-name').remove();
     $('.room-btn').remove();
-  });
-
+  };
+  $('#options').on('click', '.room-btn', addRoom);
 
 
   var showFriend = function() {
@@ -128,7 +128,6 @@ $(document).ready(function() {
     } else {
       $(`.${friendVal}`).fadeIn();
     }
-
   };  
 
   $('select.friends').on('change', showFriend);
@@ -140,12 +139,6 @@ $(document).ready(function() {
     friendsObject[newFriendName] = newFriendName;
   });
 
-  var refreshMesssages = function() {
-    $('.message-box').fadeOut();    
-    var roomVal = $('select.rooms').val();
-    app.fetch(roomVal);    
-  };
-
   var addFriendToArray = function(e) {
     var val = e.target.innerHTML.substring(0, e.target.innerHTML.length - 1);
     friendsObject[val] = val;
@@ -153,6 +146,14 @@ $(document).ready(function() {
 
   };
   $('#chats').on('click', '.username', addFriendToArray);
+
+  
+  var refreshMesssages = function() {
+    var roomVal = $('select.rooms').val();
+    var friendName = $('.friend-name').val();
+    $('.message-box').fadeOut();    
+    app.fetch(roomVal, friendName);  
+  };
 
   setInterval(refreshMesssages, 5333.333333);
 
