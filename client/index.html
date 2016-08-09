@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap-min.js"></script>
   <div class="container">
     <div class="row">
       <div class="col-xs-offset-1 col-xs-10">
@@ -35,30 +38,42 @@
         </div>
       </div>
       <div class="col-xs-5">
-        <div class=" labelBlock " id="options ">
-          <h3 class="labels "> Room: </h3>
-          <select class="labels rooms ">
-            <option value="test ">Test</option>
-            <option value="lobby ">Lobby</option>
-            <option value="add-room ">Create New Room...</option>
+        <div class="labelBlock" id="options">
+          <h3 class="labels"> Room: </h3>
+          <select class="labels rooms">
+            <option value="test">Test</option>
+            <option value="lobby">Lobby</option>
+            <option value="add-room">Create New Room...</option>
           </select>
         </div>
-        <div class="labelBlock ">
-          <input type="text " class="labels enter-text "></input>
-          <button class="send labels "> Send Message</button>
+        <div class="labelBlock">
+          <input type="text" class="labels enter-text"></input>
+          <button class="send labels"> Send Message</button>
         </div>
+
+        <div class="labelBlock" id="social">
+          <h3 class="labels"> Friends: </h3>
+          <select class="labels friends">
+            <option value="MooMan">MooMan</option>
+            <option value="Daddy">Daddy</option>
+            <option value="add-friend">Add Friend...</option>
+          </select>
+        </div>
+        <div class="labelBlock">
+          <input type="text" class="labels enter-text"></input>
+          <!--
+          <button class="send labels"> Send Message</button>-->
+        </div> 
+
       </div>
     </div>
-    <div class="row ">
-      <div class="col-xs-offset-1 col-xs-10 ">
+    <div class="row">
+      <div class="col-xs-offset-1 col-xs-10">
         <div id="chats"></div>
       </div>
     </div>
-    <script src="bower_components/jquery/dist/jquery.js "></script>
-    <script src="bower_components/underscore/underscore-min.js "></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap-min.js "></script>
-    <script src="env/config.js "></script>
-    <script src="scripts/app.js "></script>
+    <script src="env/config.js"></script>
+    <script src="scripts/app.js"></script>
 </body>
 
 </html>

@@ -33,6 +33,7 @@ app.fetch = function(room, user) {
     type: 'GET',
     contentType: 'application/json',
     success: function(data) {
+      console.log(data);
       // Put on the DOM
       _.each(data.results, function(item) {
         app.addMessage(item);
@@ -66,19 +67,21 @@ app.addRoom = function() {};
 $(document).ready(function() {
   app.fetch('lobby');
 
+  var friendsObject = {};
+
   var sendMessage = function() {
     var message = {
       username: app.user,
       text: $('.enter-text').val(),
       roomname: $('select.rooms').val()
     };
+    console.log($('select.rooms').val());
     app.send(message);
   };
   $('.send').on('click', sendMessage);
 
   var changeRoom = function() {
     $('.message-box').fadeOut();
-    console.log('this value: ', $(this).text());
     var roomVal = $('select.rooms').val();
 
     app.fetch(roomVal);
@@ -98,12 +101,56 @@ $(document).ready(function() {
   };
 
   $('select.rooms').on('change', changeRoom);
-
   $('#options').on('click', '.room-btn', function() {
     var newRoomName = $('.room-name').val();
     $('select.rooms').prepend(`<option selected value="${newRoomName}">${newRoomName}</option>`);
     $('.room-name').remove();
     $('.room-btn').remove();
   });
+
+
+
+  var showFriend = function() {
+    $('.message-box').fadeOut();
+    var friendVal = $('select.friends').val();
+
+    app.fetch(undefined, friendVal);
+
+    if (friendVal === 'add-friend') {
+      //create container for message
+      var friendBox = $('<input type="text" class="friend-name" placeholder="Name your friend..."> </input>');
+      var friendBtn = $('<button class="friend-btn"> Show Friend </button>');
+      //create components for message parts
+      $('#social').append(friendBox);
+      $('#social').append(friendBtn);
+    } else {
+      $(`.${friendVal}`).fadeIn();
+    }
+
+  };  
+
+  $('select.friends').on('change', showFriend);
+  $('#social').on('click', '.friend-btn', function() {
+    var newFriendName = $('.friend-name').val();
+    $('select.friends').prepend(`<option selected value="${newFriendName}">${newFriendName}</option>`);
+    $('.friend-name').remove();
+    $('.friend-btn').remove();
+  });
+
+  var refreshMesssages = function() {
+    $('.message-box').fadeOut();    
+    var roomVal = $('select.rooms').val();
+    app.fetch(roomVal);    
+  };
+
+  var addFriendToArray = function(e) {
+    e.target.style = "background-color: yellow";
+    var val = e.target.innerHTML.substring(0, e.target.innerHTML.length - 1);
+    friendsObject[val] = val;
+    console.log(friendsObject);
+  };
+
+  $('#chats').on('click', '.username', addFriendToArray);
+  setInterval(refreshMesssages, 5333.333333);
 
 });
